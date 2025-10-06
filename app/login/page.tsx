@@ -62,14 +62,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Chemedical Hub</h1>
-          <p className="text-gray-600">Willkommen zurück!</p>
-        </div>
-
         <div className="bg-white rounded-2xl shadow-xl p-8">
+          <img
+            src="/chemedical-id-logo-2.png"
+            alt="Chemedical ID"
+            className="w-full mb-8"
+          />
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
               {error}
