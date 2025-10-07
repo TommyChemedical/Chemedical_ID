@@ -38,6 +38,7 @@ export default function Register() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const { data } = db.useQuery({ users: {}, credentials: {} } as any);
 
@@ -53,30 +54,64 @@ export default function Register() {
 
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errors: string[] = [];
+
+    if (!email) errors.push('email');
+    if (!password) errors.push('password');
+    if (!passwordConfirm) errors.push('passwordConfirm');
+    if (!acceptedTerms) errors.push('acceptedTerms');
+    if (!acceptedPrivacy) errors.push('acceptedPrivacy');
+
+    if (errors.length > 0) {
+      setFieldErrors(errors);
+      setError('Bitte fülle alle erforderlichen Felder aus');
+      return;
+    }
 
     if (!acceptedTerms || !acceptedPrivacy) {
       setError('Bitte akzeptiere die AGB und Datenschutzerklärung');
+      setFieldErrors(['acceptedTerms', 'acceptedPrivacy']);
       return;
     }
 
     if (password.length < 8) {
       setError('Passwort muss mindestens 8 Zeichen lang sein');
+      setFieldErrors(['password']);
       return;
     }
 
     if (password !== passwordConfirm) {
       setError('Passwörter stimmen nicht überein');
+      setFieldErrors(['password', 'passwordConfirm']);
       return;
     }
 
     setError('');
+    setFieldErrors([]);
     setStep(2);
   };
 
   const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errors: string[] = [];
+
+    if (role === 'student') {
+      if (!university) errors.push('university');
+      if (!semester) errors.push('semester');
+    } else if (role === 'doctor') {
+      if (!specialty) errors.push('specialty');
+      if (!clinicName) errors.push('clinicName');
+    }
+
+    if (errors.length > 0) {
+      setFieldErrors(errors);
+      setError('Bitte fülle alle erforderlichen Felder aus');
+      return;
+    }
+
     setIsLoading(true);
     setError('');
+    setFieldErrors([]);
 
     try {
       const userId = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -226,7 +261,7 @@ export default function Register() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('email') ? 'border-red-500' : 'border-gray-300'}`}
                   />
                 </div>
 
@@ -240,7 +275,7 @@ export default function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={8}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('password') ? 'border-red-500' : 'border-gray-300'}`}
                   />
                 </div>
 
@@ -254,7 +289,7 @@ export default function Register() {
                     onChange={(e) => setPasswordConfirm(e.target.value)}
                     required
                     minLength={8}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('passwordConfirm') ? 'border-red-500' : 'border-gray-300'}`}
                   />
                 </div>
 
@@ -366,7 +401,7 @@ export default function Register() {
                       <select
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('university') ? 'border-red-500' : 'border-gray-300'}`}
                       >
                         <option value="">Bitte wählen...</option>
                         {universities.map((uni) => (
@@ -387,7 +422,7 @@ export default function Register() {
                           value={semester}
                           onChange={(e) => setSemester(e.target.value)}
                           placeholder="z.B. 3"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('semester') ? 'border-red-500' : 'border-gray-300'}`}
                         />
                       </div>
                       <div>
@@ -426,7 +461,7 @@ export default function Register() {
                       <select
                         value={specialty}
                         onChange={(e) => setSpecialty(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('specialty') ? 'border-red-500' : 'border-gray-300'}`}
                       >
                         <option value="">Bitte wählen...</option>
                         {specialties.map((spec) => (
@@ -461,7 +496,7 @@ export default function Register() {
                         value={clinicName}
                         onChange={(e) => setClinicName(e.target.value)}
                         placeholder="z.B. Universitätsklinikum München"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('clinicName') ? 'border-red-500' : 'border-gray-300'}`}
                       />
                     </div>
 
