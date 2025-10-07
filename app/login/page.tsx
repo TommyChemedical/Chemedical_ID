@@ -64,7 +64,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-transparent flex items-center justify-center px-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-gray-50 rounded-2xl p-8">
           <img
             src="/chemedical-id-logo-2.png"
             alt="Chemedical ID"
