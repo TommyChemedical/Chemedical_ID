@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import db from '@/lib/db';
+import './widget.css';
 
 export default function LoginWidget() {
   const router = useRouter();
@@ -62,8 +63,8 @@ export default function LoginWidget() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-auto">
+    <div className="min-h-screen flex items-center justify-center bg-transparent">
+      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
         <img
           src="/chemedical-id-logo-2.png"
           alt="Chemedical ID"
