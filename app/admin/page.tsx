@@ -11,6 +11,9 @@ export default function AdminPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [editingUser, setEditingUser] = useState<any>(null);
+  const [editStatus, setEditStatus] = useState('');
+  const [editVerification, setEditVerification] = useState('');
 
   const { data } = db.useQuery({
     users: {},
@@ -40,6 +43,36 @@ export default function AdminPage() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('admin_authenticated');
+  };
+
+  const updateUserStatus = (userId: string, newStatus: string) => {
+    (db as any).transact([
+      (db as any).tx.users[userId].update({
+        status: newStatus,
+      }),
+    ]);
+  };
+
+  const updateVerificationStatus = (userId: string, role: string, newStatus: string) => {
+    if (role === 'student') {
+      const profile = studentProfiles.find((p: any) => p.userId === userId);
+      if (profile) {
+        (db as any).transact([
+          (db as any).tx.profileStudent[profile.id].update({
+            verificationStatus: newStatus,
+          }),
+        ]);
+      }
+    } else if (role === 'doctor') {
+      const profile = doctorProfiles.find((p: any) => p.userId === userId);
+      if (profile) {
+        (db as any).transact([
+          (db as any).tx.profileDoctor[profile.id].update({
+            verificationStatus: newStatus,
+          }),
+        ]);
+      }
+    }
   };
 
   const deleteUser = (userId: string) => {
@@ -185,7 +218,8 @@ export default function AdminPage() {
                 <tr className="border-b-2">
                   <th className="text-left py-3 px-4 text-[#02187B]">E-Mail</th>
                   <th className="text-left py-3 px-4 text-[#02187B]">Rolle</th>
-                  <th className="text-left py-3 px-4 text-[#02187B]">Status</th>
+                  <th className="text-left py-3 px-4 text-[#02187B]">Account-Status</th>
+                  <th className="text-left py-3 px-4 text-[#02187B]">Verifizierung</th>
                   <th className="text-left py-3 px-4 text-[#02187B]">Erstellt</th>
                   <th className="text-left py-3 px-4 text-[#02187B]">Aktionen</th>
                 </tr>
@@ -205,7 +239,34 @@ export default function AdminPage() {
                           {user.role === 'student' ? 'Student' : 'Arzt'}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-sm text-gray-600">{user.status}</td>
+                      <td className="py-3 px-4">
+                        <select
+                          value={user.status}
+                          onChange={(e) => updateUserStatus(user.id, e.target.value)}
+                          className="text-sm border border-gray-300 rounded px-2 py-1 text-blue-900"
+                        >
+                          <option value="pending_verification">Ausstehend</option>
+                          <option value="active">Aktiv</option>
+                          <option value="suspended">Gesperrt</option>
+                          <option value="deleted">Gelöscht</option>
+                        </select>
+                      </td>
+                      <td className="py-3 px-4">
+                        <select
+                          value={
+                            studentProfile?.verificationStatus ||
+                            doctorProfile?.verificationStatus ||
+                            'unverified'
+                          }
+                          onChange={(e) => updateVerificationStatus(user.id, user.role, e.target.value)}
+                          className="text-sm border border-gray-300 rounded px-2 py-1 text-blue-900"
+                        >
+                          <option value="unverified">Ungeprüft</option>
+                          <option value="pending">In Prüfung</option>
+                          <option value="verified">Verifiziert</option>
+                          <option value="rejected">Abgelehnt</option>
+                        </select>
+                      </td>
                       <td className="py-3 px-4 text-sm text-gray-600">
                         {new Date(user.createdAt).toLocaleDateString('de-DE')}
                       </td>
