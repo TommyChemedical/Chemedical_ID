@@ -63,25 +63,25 @@ export default function Register() {
 
     if (errors.length > 0) {
       setFieldErrors(errors);
-      setError('Bitte fülle alle erforderlichen Felder aus');
+      setError('Bitte fülle alle erforderlichen Felder aus.');
       return;
     }
 
     // Check password requirements
     if (password.length < 8 || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      setError('Passwort muss mindestens 8 Zeichen, eine Zahl und ein Sonderzeichen enthalten');
+      setError('Passwort muss mindestens 8 Zeichen, eine Zahl und ein Sonderzeichen enthalten.');
       setFieldErrors(['password']);
       return;
     }
 
     if (password !== passwordConfirm) {
-      setError('Passwörter stimmen nicht überein');
+      setError('Passwörter stimmen nicht überein.');
       setFieldErrors(['password', 'passwordConfirm']);
       return;
     }
 
     if (!acceptedTerms || !acceptedPrivacy) {
-      setError('Bitte akzeptiere die AGB und Datenschutzerklärung');
+      setError('Bitte akzeptiere die AGB und Datenschutzerklärung.');
       setFieldErrors(['acceptedTerms', 'acceptedPrivacy']);
       return;
     }
@@ -105,7 +105,7 @@ export default function Register() {
 
     if (errors.length > 0) {
       setFieldErrors(errors);
-      setError('Bitte fülle alle erforderlichen Felder aus');
+      setError('Bitte fülle alle erforderlichen Felder aus.');
       return;
     }
 
@@ -242,7 +242,7 @@ export default function Register() {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center">
               {error}
             </div>
           )}
