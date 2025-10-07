@@ -39,6 +39,18 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const { data } = db.useQuery({ users: {}, credentials: {} } as any);
+
+  // Send height to parent window
+  useEffect(() => {
+    const sendHeight = () => {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'resize', height: 900 }, '*');
+      }
+    };
+    sendHeight();
+  }, [step]);
+
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault();
 
