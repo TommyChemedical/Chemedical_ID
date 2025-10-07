@@ -64,7 +64,7 @@ export default function LoginWidget() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-transparent">
-      <div className="bg-gray-200 rounded-2xl p-8 max-w-md w-full">
+      <div className="bg-white rounded-2xl p-8 max-w-md w-full border-2 border-black">
         <img
           src="/chemedical-id-logo-2.png"
           alt="Chemedical ID"
