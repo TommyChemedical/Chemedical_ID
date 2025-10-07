@@ -116,7 +116,7 @@ export default function LoginWidget() {
       </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Noch kein Account? <a href="/register" className="text-blue-900 hover:underline">Jetzt registrieren</a>
+          Noch kein Account? <a href="/register" target="_blank" className="text-blue-900 hover:underline">Jetzt registrieren</a>
         </p>
       </div>
     </div>
