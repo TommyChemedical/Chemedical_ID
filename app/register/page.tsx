@@ -56,11 +56,10 @@ export default function Register() {
     e.preventDefault();
     const errors: string[] = [];
 
+    // Check empty fields
     if (!email) errors.push('email');
     if (!password) errors.push('password');
     if (!passwordConfirm) errors.push('passwordConfirm');
-    if (!acceptedTerms) errors.push('acceptedTerms');
-    if (!acceptedPrivacy) errors.push('acceptedPrivacy');
 
     if (errors.length > 0) {
       setFieldErrors(errors);
@@ -68,14 +67,9 @@ export default function Register() {
       return;
     }
 
-    if (!acceptedTerms || !acceptedPrivacy) {
-      setError('Bitte akzeptiere die AGB und Datenschutzerklärung');
-      setFieldErrors(['acceptedTerms', 'acceptedPrivacy']);
-      return;
-    }
-
-    if (password.length < 8) {
-      setError('Passwort muss mindestens 8 Zeichen lang sein');
+    // Check password requirements
+    if (password.length < 8 || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError('Passwort muss mindestens 8 Zeichen, eine Zahl und ein Sonderzeichen enthalten');
       setFieldErrors(['password']);
       return;
     }
@@ -83,6 +77,12 @@ export default function Register() {
     if (password !== passwordConfirm) {
       setError('Passwörter stimmen nicht überein');
       setFieldErrors(['password', 'passwordConfirm']);
+      return;
+    }
+
+    if (!acceptedTerms || !acceptedPrivacy) {
+      setError('Bitte akzeptiere die AGB und Datenschutzerklärung');
+      setFieldErrors(['acceptedTerms', 'acceptedPrivacy']);
       return;
     }
 
@@ -267,7 +267,7 @@ export default function Register() {
 
                 <div>
                   <label className="block text-sm font-medium text-[#02187B] mb-1">
-                    Passwort * (mind. 8 Zeichen)
+                    Passwort * (mind. 8 Zeichen, eine Zahl, ein Sonderzeichen)
                   </label>
                   <input
                     type="password"
