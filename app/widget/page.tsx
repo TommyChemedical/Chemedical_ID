@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import db from '@/lib/db';
 import './widget.css';
@@ -13,6 +13,16 @@ export default function LoginWidget() {
   const [error, setError] = useState('');
 
   const { data } = db.useQuery({ users: {}, credentials: {} } as any);
+
+  // Send height to parent window
+  useEffect(() => {
+    const sendHeight = () => {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'resize', height: 500 }, '*');
+      }
+    };
+    sendHeight();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
