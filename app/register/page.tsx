@@ -33,7 +33,7 @@ export default function Register() {
   // Step 2: Role-specific (Doctor)
   const [specialty, setSpecialty] = useState('');
   const [employmentType, setEmploymentType] = useState<'niedergelassen' | 'angestellt' | 'weiterbildung'>('angestellt');
-  const [clinicName, setClinicName] = useState('');
+  const [country, setCountry] = useState<'deutschland' | 'österreich' | 'schweiz'>('deutschland');
   const [registerNumber, setRegisterNumber] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -98,9 +98,11 @@ export default function Register() {
     if (role === 'student') {
       if (!university) errors.push('university');
       if (!semester) errors.push('semester');
+      if (!examYear) errors.push('examYear');
+      if (!universityEmail) errors.push('universityEmail');
     } else if (role === 'doctor') {
       if (!specialty) errors.push('specialty');
-      if (!clinicName) errors.push('clinicName');
+      if (!registerNumber) errors.push('registerNumber');
     }
 
     if (errors.length > 0) {
@@ -380,7 +382,7 @@ export default function Register() {
                 ← Zurück
               </button>
 
-              <h2 className="text-2xl font-bold mb-6">
+              <h2 className="text-2xl font-bold mb-6" style={{ color: '#02187B' }}>
                 {role === 'student' ? 'Studium' : 'Berufliche Angaben'}
               </h2>
 
@@ -408,7 +410,7 @@ export default function Register() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-[#02187B] mb-1">
-                          Semester
+                          Fachsemester *
                         </label>
                         <input
                           type="text"
@@ -420,28 +422,28 @@ export default function Register() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-[#02187B] mb-1">
-                          Voraussichtliches Examen
+                          Voraussichtliches Examen *
                         </label>
                         <input
                           type="text"
                           value={examYear}
                           onChange={(e) => setExamYear(e.target.value)}
                           placeholder="z.B. 2026"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('examYear') ? 'border-red-500' : 'border-gray-300'}`}
                         />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        Uni-E-Mail (für Verifizierung)
+                        Uni-E-Mail (für Verifizierung) *
                       </label>
                       <input
                         type="email"
                         value={universityEmail}
                         onChange={(e) => setUniversityEmail(e.target.value)}
                         placeholder="vorname.nachname@uni-muenchen.de"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('universityEmail') ? 'border-red-500' : 'border-gray-300'}`}
                       />
                     </div>
                   </>
@@ -482,27 +484,35 @@ export default function Register() {
 
                     <div>
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        Praxis/Klinik
+                        Land *
                       </label>
-                      <input
-                        type="text"
-                        value={clinicName}
-                        onChange={(e) => setClinicName(e.target.value)}
-                        placeholder="z.B. Universitätsklinikum München"
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('clinicName') ? 'border-red-500' : 'border-gray-300'}`}
-                      />
+                      <select
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value as any)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                      >
+                        <option value="deutschland">Deutschland</option>
+                        <option value="österreich">Österreich</option>
+                        <option value="schweiz">Schweiz</option>
+                      </select>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        Registernummer (optional)
+                        {country === 'deutschland' && 'EFN-Nummer (Einheitliche Fortbildungsnummer) *'}
+                        {country === 'österreich' && 'Ärztekammer-Nummer *'}
+                        {country === 'schweiz' && 'GLN-Nummer (Global Location Number) *'}
                       </label>
                       <input
                         type="text"
                         value={registerNumber}
                         onChange={(e) => setRegisterNumber(e.target.value)}
-                        placeholder="z.B. Ärztekammer-Nummer"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        placeholder={
+                          country === 'deutschland' ? 'z.B. DE123456789' :
+                          country === 'österreich' ? 'z.B. 12345' :
+                          'z.B. 7601234567890'
+                        }
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('registerNumber') ? 'border-red-500' : 'border-gray-300'}`}
                       />
                     </div>
                   </>
