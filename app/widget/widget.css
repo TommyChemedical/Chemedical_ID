@@ -1,7 +1,15 @@
+* {
+  background: transparent !important;
+}
+
+html {
+  background: transparent !important;
+}
+
 body {
   background: transparent !important;
 }
 
-html, body {
+#__next {
   background: transparent !important;
 }
