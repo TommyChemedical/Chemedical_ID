@@ -605,7 +605,7 @@ export default function Register() {
 
                     <div>
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        {country === 'deutschland' && 'EFN-Nummer (Einheitliche Fortbildungsnummer) *'}
+                        {country === 'deutschland' && 'Ärztekammer-Nummer (LANR) *'}
                         {country === 'österreich' && 'Ärztekammer-Nummer *'}
                         {country === 'schweiz' && 'GLN-Nummer (Global Location Number) *'}
                       </label>
@@ -614,7 +614,7 @@ export default function Register() {
                         value={registerNumber}
                         onChange={(e) => setRegisterNumber(e.target.value)}
                         placeholder={
-                          country === 'deutschland' ? 'z.B. DE123456789' :
+                          country === 'deutschland' ? 'z.B. 123456789' :
                           country === 'österreich' ? 'z.B. 12345' :
                           'z.B. 7601234567890'
                         }
