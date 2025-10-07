@@ -214,11 +214,11 @@ export default function Register() {
 
           {step === 1 && (
             <form onSubmit={handleStep1Submit}>
-              <h2 className="text-2xl font-bold mb-6">Registrierung</h2>
+              <h2 className="text-2xl font-bold mb-6" style={{ color: '#02187B' }}>Registrierung</h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#02187B] mb-1">
                     E-Mail *
                   </label>
                   <input
@@ -231,7 +231,7 @@ export default function Register() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#02187B] mb-1">
                     Passwort * (mind. 8 Zeichen)
                   </label>
                   <input
@@ -245,7 +245,7 @@ export default function Register() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#02187B] mb-1">
                     Passwort bestätigen *
                   </label>
                   <input
@@ -259,7 +259,7 @@ export default function Register() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                  <label className="block text-sm font-medium text-[#02187B] mb-3">
                     Ich bin *
                   </label>
                   <div className="grid grid-cols-2 gap-4">
@@ -269,7 +269,7 @@ export default function Register() {
                       className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${
                         role === 'student'
                           ? 'border-blue-900 bg-blue-50 text-blue-900'
-                          : 'border-gray-300 text-gray-700 hover:border-blue-300'
+                          : 'border-gray-300 text-[#02187B] hover:border-blue-300'
                       }`}
                     >
                       Student:in
@@ -280,7 +280,7 @@ export default function Register() {
                       className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${
                         role === 'doctor'
                           ? 'border-blue-900 bg-blue-50 text-blue-900'
-                          : 'border-gray-300 text-gray-700 hover:border-blue-300'
+                          : 'border-gray-300 text-[#02187B] hover:border-blue-300'
                       }`}
                     >
                       Ärzt:in
@@ -297,7 +297,7 @@ export default function Register() {
                       required
                       className="mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-[#02187B]">
                       Ich akzeptiere die <a href="/terms" className="text-blue-900 hover:underline">AGB</a> *
                     </span>
                   </label>
@@ -310,7 +310,7 @@ export default function Register() {
                       required
                       className="mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-[#02187B]">
                       Ich akzeptiere die <a href="/privacy" className="text-blue-900 hover:underline">Datenschutzerklärung</a> *
                     </span>
                   </label>
@@ -322,7 +322,7 @@ export default function Register() {
                       onChange={(e) => setMarketingConsent(e.target.checked)}
                       className="mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-[#02187B]">
                       Ich möchte Updates und Neuigkeiten per E-Mail erhalten (optional)
                     </span>
                   </label>
@@ -360,7 +360,7 @@ export default function Register() {
                 {role === 'student' ? (
                   <>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Universität
                       </label>
                       <select
@@ -379,7 +379,7 @@ export default function Register() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-[#02187B] mb-1">
                           Semester
                         </label>
                         <input
@@ -391,7 +391,7 @@ export default function Register() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-[#02187B] mb-1">
                           Voraussichtliches Examen
                         </label>
                         <input
@@ -405,7 +405,7 @@ export default function Register() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Uni-E-Mail (für Verifizierung)
                       </label>
                       <input
@@ -420,7 +420,7 @@ export default function Register() {
                 ) : (
                   <>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Fachrichtung
                       </label>
                       <select
@@ -438,7 +438,7 @@ export default function Register() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Beschäftigung
                       </label>
                       <select
@@ -453,7 +453,7 @@ export default function Register() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Praxis/Klinik
                       </label>
                       <input
@@ -466,7 +466,7 @@ export default function Register() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Registernummer (optional)
                       </label>
                       <input

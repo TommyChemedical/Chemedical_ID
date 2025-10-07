@@ -89,7 +89,7 @@ export default function Login() {
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[#02187B] mb-1">
                   E-Mail
                 </label>
                 <input
@@ -102,7 +102,7 @@ export default function Login() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[#02187B] mb-1">
                   Passwort
                 </label>
                 <input
