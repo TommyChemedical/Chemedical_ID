@@ -260,7 +260,6 @@ export default function Register() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                     className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('email') ? 'border-red-500' : 'border-gray-300'}`}
                   />
                 </div>
@@ -273,8 +272,6 @@ export default function Register() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={8}
                     className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('password') ? 'border-red-500' : 'border-gray-300'}`}
                   />
                 </div>
@@ -287,8 +284,6 @@ export default function Register() {
                     type="password"
                     value={passwordConfirm}
                     onChange={(e) => setPasswordConfirm(e.target.value)}
-                    required
-                    minLength={8}
                     className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('passwordConfirm') ? 'border-red-500' : 'border-gray-300'}`}
                   />
                 </div>
