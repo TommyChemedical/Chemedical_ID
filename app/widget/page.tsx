@@ -62,12 +62,13 @@ export default function LoginWidget() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md mx-auto">
-      <img
-        src="/chemedical-id-logo-2.png"
-        alt="Chemedical ID"
-        className="w-full mb-8"
-      />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-auto">
+        <img
+          src="/chemedical-id-logo-2.png"
+          alt="Chemedical ID"
+          className="w-full mb-8"
+        />
 
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
@@ -113,9 +114,10 @@ export default function LoginWidget() {
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-600">
-        Noch kein Account? <a href="/register" className="text-blue-900 hover:underline">Jetzt registrieren</a>
-      </p>
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Noch kein Account? <a href="/register" className="text-blue-900 hover:underline">Jetzt registrieren</a>
+        </p>
+      </div>
     </div>
   );
 }
