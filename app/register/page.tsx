@@ -202,7 +202,7 @@ export default function Register() {
             userId,
             specialty,
             employmentType,
-            clinicName,
+            country,
             registerNumber,
             verificationStatus: 'unverified',
           }),
