@@ -196,7 +196,7 @@ export default function Register() {
           </div>
         </div>
 
-        <div className="bg-gray-50 rounded-2xl p-8">
+        <div className="bg-gray-200 rounded-2xl p-8">
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
               {error}
