@@ -26,12 +26,16 @@ export default function Register() {
 
   // Step 2: Role-specific (Student)
   const [university, setUniversity] = useState('');
+  const [universitySearch, setUniversitySearch] = useState('');
+  const [showUniversityDropdown, setShowUniversityDropdown] = useState(false);
   const [semester, setSemester] = useState('');
   const [examYear, setExamYear] = useState('');
   const [universityEmail, setUniversityEmail] = useState('');
 
   // Step 2: Role-specific (Doctor)
   const [specialty, setSpecialty] = useState('');
+  const [specialtySearch, setSpecialtySearch] = useState('');
+  const [showSpecialtyDropdown, setShowSpecialtyDropdown] = useState(false);
   const [employmentType, setEmploymentType] = useState<'niedergelassen' | 'angestellt' | 'weiterbildung'>('angestellt');
   const [country, setCountry] = useState<'deutschland' | 'österreich' | 'schweiz'>('deutschland');
   const [registerNumber, setRegisterNumber] = useState('');
@@ -102,6 +106,8 @@ export default function Register() {
       if (!universityEmail) errors.push('universityEmail');
     } else if (role === 'doctor') {
       if (!specialty) errors.push('specialty');
+      if (!employmentType) errors.push('employmentType');
+      if (!country) errors.push('country');
       if (!registerNumber) errors.push('registerNumber');
     }
 
@@ -389,22 +395,41 @@ export default function Register() {
               <div className="space-y-4">
                 {role === 'student' ? (
                   <>
-                    <div>
+                    <div className="relative">
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        Universität
+                        Universität *
                       </label>
-                      <select
-                        value={university}
-                        onChange={(e) => setUniversity(e.target.value)}
+                      <input
+                        type="text"
+                        value={universitySearch || university}
+                        onChange={(e) => {
+                          setUniversitySearch(e.target.value);
+                          setUniversity('');
+                          setShowUniversityDropdown(true);
+                        }}
+                        onFocus={() => setShowUniversityDropdown(true)}
+                        placeholder="Tippen zum Suchen..."
                         className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('university') ? 'border-red-500' : 'border-gray-300'}`}
-                      >
-                        <option value="">Bitte wählen...</option>
-                        {universities.map((uni) => (
-                          <option key={uni} value={uni}>
-                            {uni}
-                          </option>
-                        ))}
-                      </select>
+                      />
+                      {showUniversityDropdown && (
+                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                          {universities
+                            .filter(uni => uni.toLowerCase().includes((universitySearch || '').toLowerCase()))
+                            .map((uni) => (
+                              <div
+                                key={uni}
+                                onClick={() => {
+                                  setUniversity(uni);
+                                  setUniversitySearch('');
+                                  setShowUniversityDropdown(false);
+                                }}
+                                className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                              >
+                                {uni}
+                              </div>
+                            ))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -449,32 +474,51 @@ export default function Register() {
                   </>
                 ) : (
                   <>
-                    <div>
+                    <div className="relative">
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        Fachrichtung
+                        Fachrichtung *
                       </label>
-                      <select
-                        value={specialty}
-                        onChange={(e) => setSpecialty(e.target.value)}
+                      <input
+                        type="text"
+                        value={specialtySearch || specialty}
+                        onChange={(e) => {
+                          setSpecialtySearch(e.target.value);
+                          setSpecialty('');
+                          setShowSpecialtyDropdown(true);
+                        }}
+                        onFocus={() => setShowSpecialtyDropdown(true)}
+                        placeholder="Tippen zum Suchen..."
                         className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 ${fieldErrors.includes('specialty') ? 'border-red-500' : 'border-gray-300'}`}
-                      >
-                        <option value="">Bitte wählen...</option>
-                        {specialties.map((spec) => (
-                          <option key={spec} value={spec}>
-                            {spec}
-                          </option>
-                        ))}
-                      </select>
+                      />
+                      {showSpecialtyDropdown && (
+                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                          {specialties
+                            .filter(spec => spec.toLowerCase().includes((specialtySearch || '').toLowerCase()))
+                            .map((spec) => (
+                              <div
+                                key={spec}
+                                onClick={() => {
+                                  setSpecialty(spec);
+                                  setSpecialtySearch('');
+                                  setShowSpecialtyDropdown(false);
+                                }}
+                                className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                              >
+                                {spec}
+                              </div>
+                            ))}
+                        </div>
+                      )}
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
-                        Beschäftigung
+                        Beschäftigung *
                       </label>
                       <select
                         value={employmentType}
                         onChange={(e) => setEmploymentType(e.target.value as any)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 bg-white ${fieldErrors.includes('employmentType') ? 'border-red-500' : 'border-gray-300'}`}
                       >
                         <option value="angestellt">Angestellt</option>
                         <option value="niedergelassen">Niedergelassen</option>
@@ -489,7 +533,7 @@ export default function Register() {
                       <select
                         value={country}
                         onChange={(e) => setCountry(e.target.value as any)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900"
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 bg-white ${fieldErrors.includes('country') ? 'border-red-500' : 'border-gray-300'}`}
                       >
                         <option value="deutschland">Deutschland</option>
                         <option value="österreich">Österreich</option>
