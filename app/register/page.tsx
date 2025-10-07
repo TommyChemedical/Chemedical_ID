@@ -173,30 +173,27 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-transparent py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Chemedical Hub</h1>
-          <p className="text-gray-600">Erstelle deinen Account</p>
-        </div>
-
-        <div className="mb-8">
-          <div className="flex items-center justify-center gap-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-900 text-white' : 'bg-gray-300'}`}>
-              1
-            </div>
-            <div className="w-20 h-1 bg-gray-300"></div>
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-900 text-white' : 'bg-gray-300'}`}>
-              2
-            </div>
-          </div>
-          <div className="flex justify-between mt-2 px-4">
-            <span className="text-sm text-gray-600">Basis</span>
-            <span className="text-sm text-gray-600">Profil</span>
-          </div>
-        </div>
-
+    <div className="min-h-screen bg-transparent flex items-center justify-center px-4">
+      <div className="max-w-md w-full">
         <div className="bg-white rounded-2xl p-8 border-2 border-black">
+          <img
+            src="/chemedical-id-logo-2.png"
+            alt="Chemedical ID"
+            className="w-full mb-6"
+          />
+
+          <div className="mb-6">
+            <div className="flex items-center justify-center gap-4">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-900 text-white' : 'bg-gray-300'}`}>
+                1
+              </div>
+              <div className="w-20 h-1 bg-gray-300"></div>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-900 text-white' : 'bg-gray-300'}`}>
+                2
+              </div>
+            </div>
+          </div>
+
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
               {error}
