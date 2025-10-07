@@ -324,8 +324,7 @@ export default function Register() {
                       type="checkbox"
                       checked={acceptedTerms}
                       onChange={(e) => setAcceptedTerms(e.target.checked)}
-                      required
-                      className="mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900"
+                      className={`mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900 ${fieldErrors.includes('acceptedTerms') ? 'outline outline-2 outline-red-500' : ''}`}
                     />
                     <span className="text-sm text-[#02187B]">
                       Ich akzeptiere die <a href="/terms" className="text-blue-900 hover:underline">AGB</a> *
@@ -337,8 +336,7 @@ export default function Register() {
                       type="checkbox"
                       checked={acceptedPrivacy}
                       onChange={(e) => setAcceptedPrivacy(e.target.checked)}
-                      required
-                      className="mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900"
+                      className={`mt-1 w-4 h-4 text-blue-900 rounded focus:ring-blue-900 ${fieldErrors.includes('acceptedPrivacy') ? 'outline outline-2 outline-red-500' : ''}`}
                     />
                     <span className="text-sm text-[#02187B]">
                       Ich akzeptiere die <a href="/privacy" className="text-blue-900 hover:underline">Datenschutzerklärung</a> *
