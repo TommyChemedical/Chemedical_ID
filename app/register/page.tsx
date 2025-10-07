@@ -37,7 +37,9 @@ export default function Register() {
   const [specialtySearch, setSpecialtySearch] = useState('');
   const [showSpecialtyDropdown, setShowSpecialtyDropdown] = useState(false);
   const [employmentType, setEmploymentType] = useState<'niedergelassen' | 'angestellt' | 'weiterbildung'>('angestellt');
+  const [showEmploymentDropdown, setShowEmploymentDropdown] = useState(false);
   const [country, setCountry] = useState<'deutschland' | 'österreich' | 'schweiz'>('deutschland');
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [registerNumber, setRegisterNumber] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -511,34 +513,94 @@ export default function Register() {
                       )}
                     </div>
 
-                    <div>
+                    <div className="relative">
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Beschäftigung *
                       </label>
-                      <select
-                        value={employmentType}
-                        onChange={(e) => setEmploymentType(e.target.value as any)}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 bg-white ${fieldErrors.includes('employmentType') ? 'border-red-500' : 'border-gray-300'}`}
+                      <div
+                        onClick={() => setShowEmploymentDropdown(!showEmploymentDropdown)}
+                        className={`w-full px-4 py-2 border rounded-lg cursor-pointer text-blue-900 bg-white ${fieldErrors.includes('employmentType') ? 'border-red-500' : 'border-gray-300'}`}
                       >
-                        <option value="angestellt">Angestellt</option>
-                        <option value="niedergelassen">Niedergelassen</option>
-                        <option value="weiterbildung">In Weiterbildung</option>
-                      </select>
+                        {employmentType === 'angestellt' && 'Angestellt'}
+                        {employmentType === 'niedergelassen' && 'Niedergelassen'}
+                        {employmentType === 'weiterbildung' && 'In Weiterbildung'}
+                      </div>
+                      {showEmploymentDropdown && (
+                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                          <div
+                            onClick={() => {
+                              setEmploymentType('angestellt');
+                              setShowEmploymentDropdown(false);
+                            }}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                          >
+                            Angestellt
+                          </div>
+                          <div
+                            onClick={() => {
+                              setEmploymentType('niedergelassen');
+                              setShowEmploymentDropdown(false);
+                            }}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                          >
+                            Niedergelassen
+                          </div>
+                          <div
+                            onClick={() => {
+                              setEmploymentType('weiterbildung');
+                              setShowEmploymentDropdown(false);
+                            }}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                          >
+                            In Weiterbildung
+                          </div>
+                        </div>
+                      )}
                     </div>
 
-                    <div>
+                    <div className="relative">
                       <label className="block text-sm font-medium text-[#02187B] mb-1">
                         Land *
                       </label>
-                      <select
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value as any)}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent text-blue-900 bg-white ${fieldErrors.includes('country') ? 'border-red-500' : 'border-gray-300'}`}
+                      <div
+                        onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                        className={`w-full px-4 py-2 border rounded-lg cursor-pointer text-blue-900 bg-white ${fieldErrors.includes('country') ? 'border-red-500' : 'border-gray-300'}`}
                       >
-                        <option value="deutschland">Deutschland</option>
-                        <option value="österreich">Österreich</option>
-                        <option value="schweiz">Schweiz</option>
-                      </select>
+                        {country === 'deutschland' && 'Deutschland'}
+                        {country === 'österreich' && 'Österreich'}
+                        {country === 'schweiz' && 'Schweiz'}
+                      </div>
+                      {showCountryDropdown && (
+                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                          <div
+                            onClick={() => {
+                              setCountry('deutschland');
+                              setShowCountryDropdown(false);
+                            }}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                          >
+                            Deutschland
+                          </div>
+                          <div
+                            onClick={() => {
+                              setCountry('österreich');
+                              setShowCountryDropdown(false);
+                            }}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                          >
+                            Österreich
+                          </div>
+                          <div
+                            onClick={() => {
+                              setCountry('schweiz');
+                              setShowCountryDropdown(false);
+                            }}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-blue-900"
+                          >
+                            Schweiz
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div>
